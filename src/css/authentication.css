@@ -1,0 +1,92 @@
+.container {
+    width: 350px;
+    height: max-context;
+    margin: auto;
+    background-color: #ebebeb;
+    padding: 20px 15px;
+    border-radius: 7px;
+    font-family: PT Serif;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.login-form {
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+}
+
+.form-Field {
+    display: inline-block;
+    padding: 5px;
+    margin-top: 20px;
+    width: 220px;
+}
+
+div img{
+    width: 17px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+
+.ajuste-input{
+    width: 17px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 5px;
+}
+
+.input{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.form-error {
+    display: block;
+    color: rgb(240, 33, 18);
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.button {
+    background-image: linear-gradient(to right, #D31027 0%, #EA384D 51%, #D31027 100%); 
+    margin: 10px;
+    padding: 10px 35px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 4px;
+    display: block;
+    border: none;
+}
+
+
+.button:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+hr{
+    border-color:#aaa;
+    box-sizing:border-box;
+    width:100%;  
+  }
+
+
