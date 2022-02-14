@@ -5,25 +5,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  min-height: 100%;
   position: absolute;
-  align-items: center;
-  justify-content: center;
   top: 0;
   bottom: 0;
-  margin: auto;
   left: 0;
   right: 0;
   display: flex;
 
-  background-image: url("images/frota.jfif");
-  background-repeat: no-repeat;
-  background-size: 100%;
-}
+  background-image: url("images/frota.jfif"), url("images/FrotaAxial.jpg");
+  background-size: 100vw;
+  background-repeat:no-repeat, repeat-y;
+
+  width: 100vw;
+  min-height:100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
 

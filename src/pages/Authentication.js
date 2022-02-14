@@ -5,17 +5,12 @@ import "../css/authentication.css";
 import eye from "../images/eye.svg";
 import eyeClose from "../images/eyeClose.svg";
 import { auth } from '../firebase/Firebase'
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 function Authentication() {
   const [eye1, seteye1] = useState('password');
   const [eye2, seteye2] = useState('password');
   const [eye3, seteye3] = useState('password');
-
-  const login = () =>{
-    window.location.href ='http://localhost:3000/home';
-  } 
-
 
   const setPasswordEye1 = () => {
     if (eye1 == 'password') {
@@ -41,7 +36,22 @@ function Authentication() {
     }
   }
 
-  const handleClickLogin = (values) => {console.log(values)}
+  const handleClickLogin = (values) => {
+      signInWithEmailAndPassword(auth, values.email, values.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          // console.log('user =', user)
+          if (!!user.uid == true) {
+            window.location.href ='http://localhost:3000/home';
+          }         
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error('errorCode', errorCode) 
+          console.error('errorMessage', errorMessage) 
+        });
+  }
 
   const handleClickRegister = (values) => { 
     createUserWithEmailAndPassword(auth, values.email, values.password)
@@ -116,7 +126,7 @@ function Authentication() {
                 placeholder="senha "
                 type={eye1}
               /> 
-              <img src={eye1 == 'password' ? eye : eyeClose} alt="" onClick={() => setPasswordEye1() } />             
+              <img className="img" src={eye1 == 'password' ? eye : eyeClose} alt="" onClick={() => setPasswordEye1() } />             
             </div>
             <ErrorMessage
               component="span"
@@ -125,7 +135,7 @@ function Authentication() {
             />
           </div>
           <div className="input">
-            <button className="button" type="submit" onClick={() => login()}>
+            <button className="button" type="submit">
               Entrar
             </button>
             <div className="ajuste-input"/>
@@ -163,7 +173,7 @@ function Authentication() {
               placeholder="senha "
               type={eye2}
             />
-            <img src={eye2 == 'password' ? eye : eyeClose} alt="" onClick={() => setPasswordEye2() } />             
+            <img className="img" src={eye2 == 'password' ? eye : eyeClose} alt="" onClick={() => setPasswordEye2() } />             
             </div>
             <ErrorMessage
               component="span"
@@ -179,7 +189,7 @@ function Authentication() {
               placeholder="confirme sua senha "
               type={eye3}
             />
-            <img src={eye3 == 'password' ? eye : eyeClose} alt="" onClick={() => setPasswordEye3() } />             
+            <img className="img" src={eye3 == 'password' ? eye : eyeClose} alt="" onClick={() => setPasswordEye3() } />             
             </div>
             <ErrorMessage
               component="span"
