@@ -4,7 +4,7 @@ import * as yup from "yup";
 import "../css/authentication.css";
 import eye from "../images/eye.svg";
 import eyeClose from "../images/eyeClose.svg";
-import { auth } from '../firebase/Firebase'
+import { auth } from '../firebase/firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 function Authentication() {
