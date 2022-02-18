@@ -9,8 +9,8 @@ function Home() {
 
     const [perguntas, setPerguntas] = useState(null);
    
-    const pergunta = ['qual a sua pergunta?']
-    
+    const pergunta = ['qual a sua pergunta?', 'insira uma pergunta']
+
     // const [validation, setValidation] = useState(true);    
 
     // useEffect(() => {
