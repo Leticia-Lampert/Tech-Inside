@@ -1,46 +1,61 @@
 import CardPerguntas from "../components/CardPerguntas"
 import "../css/home.css"
-import { getDocs, collection } from "firebase/firestore";
+import { doc, deleteDoc, collection, query, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { db } from "../firebase/firebase"
 import NavBar from "../components/NavBar"
+import BoxQuestion from "../components/BoxQuestion"
 
 function Home() {
 
-    const [perguntas, setPerguntas] = useState(null);
-   
-    const pergunta = ['qual a sua pergunta?', 'insira uma pergunta']
+    const [perguntas, setPerguntas] = useState(null); 
+    const [validation, setValidation] = useState(true);    
 
-    // const [validation, setValidation] = useState(true);    
+    useEffect(() => {
+        if(!!validation) {
+            getQuestions()
+            setValidation(false)
+        }
+        console.log(validation)
+        console.log(perguntas)
+    });
 
-    // useEffect(() => {
-    //     if(!!validation ) {
-    //         setValidation(false)
-    //         getQuestions()
-    //     }
-    // });
+    const excluirPergunta = async (id) => {
+        await deleteDoc(doc(db, "perguntas", id));
+        setValidation(true)
+        setPerguntas(null)
+    }
 
-    // const getQuestions = async () => {
+    const getQuestions = async () => {
 
-    //     let question = []
+        let question = []
 
-    //     const querySnapshot = await getDocs(collection(db, "perguntas"));
-        
-    //     await querySnapshot.forEach((doc) => {
-    //         question.push(doc.data().pergunta)
-    //     });
-    //     // console.log('perguntas =', perguntas)
-    //     setPerguntas(question)
-    // }
+        const q = query(collection(db, "perguntas"));
+
+        onSnapshot(q, async (snapShot) => {
+            snapShot.forEach((doc) => {
+
+                let snap = doc.data().pergunta,
+                    id = doc.id
+                
+                question.push({
+                    snap: snap,
+                    id: id
+                })
+            });
+            setPerguntas(question)
+        })
+    }
     
     return(  
             <div >
                 <NavBar />
+                <BoxQuestion />
             <div className="component"> 
                {!!perguntas && perguntas.length > 0 ? perguntas.map((item, index) => {
                     return (
                         <div key={index} className='cardComponent'>
-                            <CardPerguntas pergunta={item} />
+                            <CardPerguntas pergunta={item} excluirPergunta={excluirPergunta} />
                         </div>
                  ) 
                 })

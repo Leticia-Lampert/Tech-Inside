@@ -41,9 +41,7 @@ function Authentication() {
         .then((userCredential) => {
           const user = userCredential.user;
           // console.log('user =', user)
-          if (!!user.uid == true) {
-            window.location.href ='http://localhost:3000/home';
-          }         
+          window.location.href ='http://localhost:3000/home';                
         })
         .catch((error) => {
           const errorCode = error.code;

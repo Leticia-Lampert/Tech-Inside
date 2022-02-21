@@ -8,14 +8,11 @@ import "../css/card.css";
 import apagar from "../images/apagar.svg";
 
 export default function CardPerguntas(props) {
-  const { pergunta } = props;
-
-  const excluirPergunta = () => {
-    console.log("teste")
-  }
+  const { pergunta, excluirPergunta } = props;
+  console.log('perguntas', pergunta)
 
   const salvarPergunta = () => {
-    console.log("testando")
+      
   }
 
   return (
@@ -26,7 +23,7 @@ export default function CardPerguntas(props) {
       }}
     >
       <CardContent>
-        <div className="images" onClick={() => excluirPergunta()} >
+        <div className="images" onClick={() => excluirPergunta(pergunta.id)} >
           <img src={apagar} alt="Deletar pergunta" />
         </div>
         <div className="text">
@@ -34,7 +31,7 @@ export default function CardPerguntas(props) {
             fullWidth
             label="clique para alterar"
             id="outlined-multiline-static"
-            defaultValue={pergunta}
+            defaultValue={pergunta.snap}
           />
         </div>
       </CardContent>

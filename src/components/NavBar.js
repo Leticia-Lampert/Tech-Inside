@@ -4,8 +4,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import '../css/navBar.css'
-import { Auth, signOut } from "firebase/auth";
-
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase/firebase'
 
 export default function NavBar() {
 
@@ -14,9 +14,11 @@ export default function NavBar() {
   }
 
   const logout = () => {
-    // console.log("testar")
     signOut(auth).then(() => {
+      console.log('Logout com sucesso')
+      window.location.href ='http://localhost:3000/autenticacao'
     }).catch((error) => {
+      console.error('Logout sem sucesso', error)
     });
   }
 
