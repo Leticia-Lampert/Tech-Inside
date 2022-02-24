@@ -4,7 +4,6 @@ import { doc, deleteDoc, collection, query, onSnapshot } from "firebase/firestor
 import { useState, useEffect } from "react";
 import { db } from "../firebase/firebase"
 import NavBar from "../components/NavBar"
-import BoxQuestion from "../components/BoxQuestion"
 
 function Home() {
 
@@ -16,8 +15,6 @@ function Home() {
             getQuestions()
             setValidation(false)
         }
-        console.log(validation)
-        console.log(perguntas)
     });
 
     const excluirPergunta = async (id) => {
@@ -49,9 +46,8 @@ function Home() {
     
     return(  
             <div >
-                <NavBar />
-                <BoxQuestion />
-            <div className="component"> 
+                <NavBar setValidation={setValidation} />
+                <div className="component"> 
                {!!perguntas && perguntas.length > 0 ? perguntas.map((item, index) => {
                     return (
                         <div key={index} className='cardComponent'>

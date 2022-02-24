@@ -1,48 +1,49 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import '../css/boxQuestion.css'
+import { collection, addDoc } from "firebase/firestore";
+import { db } from '../firebase/firebase'
 
-export default function BoxQuestion() {
-  const [open, setOpen] = React.useState(false);
+export default function BoxQuestion(props) {
+  const [question, setQuestion] = useState()
+  const { open, handleClose, setValidation } = props
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const handleChange = (e) => {
+    setQuestion(e.target.value)
+  }
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const salvar = async () => {
+    const docRef = await addDoc(collection(db, "perguntas"), {
+      pergunta: question
+    });
+    handleClose()
+    setValidation(true)
+ }
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
+    <div className='box'>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
+        <DialogTitle>Criar pergunta</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
-          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Email Address"
-            type="email"
+            label="Insira uma pergunta"
+            type="pergunta"
             fullWidth
             variant="standard"
+            onChange={(e) => handleChange(e)}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleClose}>Cancelar</Button>
+          <Button onClick={() => salvar()}>Salvar</Button>
         </DialogActions>
       </Dialog>
     </div>

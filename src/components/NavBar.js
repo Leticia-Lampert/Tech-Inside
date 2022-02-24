@@ -6,12 +6,20 @@ import Button from '@mui/material/Button';
 import '../css/navBar.css'
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase/firebase'
+import BoxQuestion from "../components/BoxQuestion"
 
-export default function NavBar() {
+export default function NavBar(props) {
+  const { setValidation } = props
+
+  const [open, setOpen] =  React.useState(false);
 
   const criarPergunta = () => {
-    console.log("teste")
+    setOpen(true)
   }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const logout = () => {
     signOut(auth).then(() => {
@@ -24,6 +32,7 @@ export default function NavBar() {
 
   return (
     <div className="navBar">
+      <BoxQuestion setValidation={setValidation}  handleClose={handleClose} open={open}/>
       <Box >
         <AppBar >
           <Toolbar>

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState }from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -6,13 +6,24 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import "../css/card.css";
 import apagar from "../images/apagar.svg";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from '../firebase/firebase'
 
 export default function CardPerguntas(props) {
   const { pergunta, excluirPergunta } = props;
-  console.log('perguntas', pergunta)
+  const [save, setSave] = useState(pergunta.snap)
 
-  const salvarPergunta = () => {
-      
+  const handleChange = (e) => {
+    setSave(e.target.value)
+    console.log('change')
+  }
+
+  const salvarPergunta = async () => {
+    const salvarRef = doc(db, "perguntas", pergunta.id);
+    console.log('perguntar')
+    await updateDoc(salvarRef, {
+      pergunta: save
+    });
   }
 
   return (
@@ -32,11 +43,12 @@ export default function CardPerguntas(props) {
             label="clique para alterar"
             id="outlined-multiline-static"
             defaultValue={pergunta.snap}
+            onChange={(e) => handleChange(e)}
           />
         </div>
       </CardContent>
       <CardActions>
-        <Button className="botao" onClick={() => salvarPergunta()}> Salvar </Button>
+        <Button className="botao" onClick={() => salvarPergunta()}> Salvar Alteração</Button>
       </CardActions>
     </Card>
   );
