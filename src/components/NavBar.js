@@ -9,7 +9,7 @@ import { auth } from '../firebase/firebase'
 import BoxQuestion from "../components/BoxQuestion"
 
 export default function NavBar(props) {
-  const { setValidation } = props
+  const { setValidation, answer } = props
 
   const [open, setOpen] =  React.useState(false);
 
@@ -30,17 +30,30 @@ export default function NavBar(props) {
     });
   }
 
+  const salvarQuestionario = () => {
+    console.log('teste')
+  }
+
   return (
-    <div className="navBar">
-      <BoxQuestion setValidation={setValidation}  handleClose={handleClose} open={open}/>
-      <Box >
-        <AppBar >
-          <Toolbar>
-            <Button color="inherit" onClick={() => criarPergunta()}>Criar pergunta</Button>
-            <Button color="inherit" onClick={() => logout()}>logout</Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
+    <div>
+      <div className="navBar">
+        <BoxQuestion setValidation={setValidation}  handleClose={handleClose} open={open}/>
+        <Box >
+          <AppBar >
+            <Toolbar>
+              { answer == 'answer'
+                ?
+                <Button className="botao" onClick={() => salvarQuestionario()}> Salvar Questionário</Button>             
+                :
+                <div>
+                <Button color="inherit" onClick={() => criarPergunta()}>Criar pergunta</Button> 
+                <Button color="inherit" onClick={() => logout()}>logout</Button>
+                </div>
+              }
+            </Toolbar>
+          </AppBar>
+        </Box>
+      </div>
     </div>
   );
 }

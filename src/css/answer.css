@@ -1,0 +1,15 @@
+.component {
+    display: flex;
+    align-items: center;  
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    margin-top: 55px
+
+}
+
+.cardComponent {
+   margin: 10px; 
+   width: 70%;
+}
+

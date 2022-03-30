@@ -1,11 +1,11 @@
-import Cards from "../components/Cards"
-import "../css/home.css"
-import { doc, deleteDoc, collection, query, onSnapshot } from "firebase/firestore";
+import Cards from "../components/Cards";
+import { collection, query, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { db } from "../firebase/firebase"
-import NavBar from "../components/NavBar"
+import { db } from "../firebase/firebase";
+import "../css/answer.css";
+import NavBar from "../components/NavBar";
 
-function Home() {
+function Answer() {
 
     const [perguntas, setPerguntas] = useState(null); 
     const [validation, setValidation] = useState(true);    
@@ -16,13 +16,7 @@ function Home() {
             setValidation(false)
         }
     });
-
-    const excluirPergunta = async (id) => {
-        await deleteDoc(doc(db, "perguntas", id));
-        setValidation(true)
-        setPerguntas(null)
-    }
-
+    
     const getQuestions = async () => {
 
         let question = []
@@ -43,24 +37,36 @@ function Home() {
             setPerguntas(question)
         })
     }
-    
-    return(  
-        <div >
-            <NavBar setValidation={setValidation} />
-            <div className="component"> 
+
+    return (
+        <div>
+            <NavBar answer = 'answer'/>
+            <div className='component'>
+                <div className='cardComponent'>
+                    <Cards 
+                        pergunta={{campo: 'name'}}
+                        disabled={false}
+                        answer='answer'
+                        name='name'
+                    />
+                </div>
                 {!!perguntas && perguntas.length > 0 ? perguntas.map((item, index) => {
                     return (
                         <div key={index} className='cardComponent'>
-                            <Cards pergunta={item} excluirPergunta={excluirPergunta} />
+                            <Cards
+                                pergunta={item}
+                                disabled={true}
+                                answer='answer'
+                            />
                         </div>
-                 ) 
-                })
-                :
-                <></>
+                    )})
+                    :
+                    <></>
                 } 
-            </div> 
+            </div>
         </div>
     )
+
 }
 
-export default Home
+export default Answer
