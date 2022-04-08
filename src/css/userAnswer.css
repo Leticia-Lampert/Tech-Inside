@@ -1,0 +1,9 @@
+.usersAnswers {
+    align-items: center;
+    margin: 40px ;
+}
+
+.data {
+    justify-content: center;
+    display: flex;
+}

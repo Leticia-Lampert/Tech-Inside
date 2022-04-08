@@ -9,8 +9,12 @@ import apagar from "../images/apagar.svg";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from '../firebase/firebase';
 import Slider from '@mui/material/Slider';
+import { useSelector, useDispatch } from 'react-redux'
 
 export default function Cards(props) {
+  const nameReducer = useSelector(state => state.name)
+  const dispatch = useDispatch()
+
   const {
     pergunta,
     excluirPergunta,
@@ -18,10 +22,11 @@ export default function Cards(props) {
     answer,
     name
   } = props;
+
   const [save, setSave] = useState(pergunta.snap)
 
   const handleChange = (e) => {
-    setSave(e.target.value)
+    dispatch({ type: 'GET_NAME', name: e.target.value })
   }
 
   const salvarPergunta = async () => {
@@ -33,7 +38,8 @@ export default function Cards(props) {
   }
 
   const slider = (e) => {
-    setSave(e.target.value)
+    dispatch({ type: 'ADD_ANSWER', value: e.target.value, idQuestion: pergunta.id })
+    
   }
 
   return (
@@ -59,7 +65,7 @@ export default function Cards(props) {
             fullWidth
             label={!!name ? 'Digite seu nome' : !!answer ? '' : "clique para alterar"}
             id="outlined-multiline-static"
-            defaultValue={pergunta.snap}
+            defaultValue={!!name ? nameReducer : pergunta.snap}
             onChange={(e) => handleChange(e)}
           />
         </div>

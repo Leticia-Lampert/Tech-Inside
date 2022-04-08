@@ -6,6 +6,7 @@ import {
 import Home from "../pages/Home";
 import Authentication from "../pages/Authentication"
 import Answer from "../pages/Answer"
+import UserAnswer from "../pages/UserAnswer"
 
 function Router() {
     return(
@@ -14,6 +15,7 @@ function Router() {
                 <Route path="/home" element={<Home />} />
                 <Route path="/autenticacao" element={<Authentication/>}  />
                 <Route path="/resposta" element={<Answer />} />
+                <Route path="/useranswer" element={<UserAnswer />}/>
                 <Route path="/*" element={<div>Rota não encontrada</div>} />
             </Routes>
         </BrowserRouter>

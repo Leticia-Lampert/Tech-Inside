@@ -11,6 +11,8 @@ function Answer() {
     const [validation, setValidation] = useState(true);    
 
     useEffect(() => {
+        console.log('perguntas', perguntas)
+        console.log('validation', validation)
         if(!!validation) {
             getQuestions()
             setValidation(false)

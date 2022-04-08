@@ -12,10 +12,15 @@ function Home() {
 
     useEffect(() => {
         if(!!validation) {
-            getQuestions()
+            ajustQuestion()
             setValidation(false)
         }
     });
+
+    const ajustQuestion = (() => {
+        setPerguntas(null)
+        getQuestions()
+    })
 
     const excluirPergunta = async (id) => {
         await deleteDoc(doc(db, "perguntas", id));
@@ -23,13 +28,13 @@ function Home() {
         setPerguntas(null)
     }
 
-    const getQuestions = async () => {
+    const getQuestions = () => {
 
         let question = []
 
         const q = query(collection(db, "perguntas"));
 
-        onSnapshot(q, async (snapShot) => {
+        onSnapshot(q, (snapShot) => {
             snapShot.forEach((doc) => {
 
                 let snap = doc.data().pergunta,
@@ -46,7 +51,7 @@ function Home() {
     
     return(  
         <div >
-            <NavBar setValidation={setValidation} />
+            <NavBar setValidation={setValidation} setPerguntas={setPerguntas} />
             <div className="component"> 
                 {!!perguntas && perguntas.length > 0 ? perguntas.map((item, index) => {
                     return (

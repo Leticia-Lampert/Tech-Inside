@@ -23,7 +23,6 @@ export default function BoxQuestion(props) {
     });
     handleClose()
     setValidation(true)
-    console.log('teste')
  }
 
   return (
