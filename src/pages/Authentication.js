@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import React, { useEffect, useState } from 'react';
+import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as yup from "yup";
 import "../css/authentication.css";
 import eye from "../images/eye.svg";
 import eyeClose from "../images/eyeClose.svg";
 import { auth } from '../firebase/firebase'
+import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { useDispatch, useSelector } from 'react-redux'
 
 function Authentication() {
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+
   const [eye1, seteye1] = useState('password');
   const [eye2, seteye2] = useState('password');
   const [eye3, seteye3] = useState('password');
+
+  const history = useNavigate()
 
   const setPasswordEye1 = () => {
     if (eye1 == 'password') {
@@ -40,8 +47,12 @@ function Authentication() {
       signInWithEmailAndPassword(auth, values.email, values.password)
         .then((userCredential) => {
           const user = userCredential.user;
-          // console.log('user =', user)
-          window.location.href ='http://localhost:3000/home';                
+
+          dispatch({ type: 'SET_USER', user: user })
+
+          localStorage.setItem('user', true)
+
+          history('/home')
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -56,13 +67,10 @@ function Authentication() {
       .then((userCredential) => {
         
         const user = userCredential.user;
-
-        console.log('user =', user) 
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
    
   }

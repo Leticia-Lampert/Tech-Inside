@@ -1,7 +1,9 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase/firebase'
+import _ from 'lodash'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -18,8 +20,8 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import "../css/userAnswer.css";
 
 function Row(props) {
-  const { row } = props;
-  const [open, setOpen] = React.useState(false);
+  const { row } = props
+  const [open, setOpen] = React.useState(false)
 
   return (
     <React.Fragment>
@@ -50,17 +52,17 @@ function Row(props) {
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
-                    <TableCell>Pergunta</TableCell>
-                    <TableCell>Resposta</TableCell>
+                    <TableCell>Pergunta:</TableCell>
+                    <TableCell>Resposta:</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {!!row && row.answer.map((answerRow) => (
+                  {!!row.answers && row.answers.map((answerRow) => (
                     <TableRow key={answerRow.question}>
                       <TableCell component="th" scope="row">
                         {answerRow.question}
                       </TableCell>
-                      <TableCell>{answerRow.answer}</TableCell>
+                      <TableCell>{answerRow.value}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -73,79 +75,45 @@ function Row(props) {
   );
 }
 
-// const rows = [
-//   createData("Leticia", getDate()),
-//   createData("Guilherme", getDate()),
-// ]
+export default function UserAnswer() {
+  
+  const rows = useSelector(state => state.rows)
+  const dispatch = useDispatch()
 
-export default function CollapsibleTable() {
+  const getAllAnswer = async () => {
 
-  const [rows, setRows] = useState([
-    {
-      name: 'Guilherme',
-      date: '07/04/2022',
-      answer: [
-        {
-          question: "Qual sua nota?",
-          answer: 3,
-        },
-        {
-          question: "Qual a nota dele?",
-          answer: 10,
-        },
-      ],
-    },
-    {
-      name: 'Leticia',
-      date: '07/04/2022',
-      answer: [
-        {
-          question: "Qual a nota da classe?",
-          answer: 6,
-        },
-        {
-          question: "tá ai?",
-          answer: 0,
-        },
-      ],
-    }
-  ])
+    const getAnswers = await getDocs(collection(db, "respostas"))
 
-  const getAllQuestions = async () => {
+    getAnswers.forEach((snap) => {
+      let doc = snap.data()
 
-    const getQuestions = await getDocs(collection(db, "perguntas"))
+      console.log('doc', doc)
 
-    let questions = []
+      let answers = []
 
-    getQuestions.forEach((doc) => {
-      questions.push({
-        questionId: doc.id,
-        question: doc.data().pergunta
+      doc.questions.forEach((item) => {
+        answers.push({
+          question: item.question,
+          value: item.value
+        })
       })
-      console.log(`${doc.id} => ${doc.data().pergunta}`);
+
+      console.log('answers', answers)
+
+      let date = new Date(doc.date.seconds * 1000),
+        newDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getYear()}`
+
+      console.log('date', date)
+      console.log('newDate', newDate)
+
+      dispatch({ type: 'ADD_ROW', name: doc.name, answers: answers, date: newDate })
     })
+  }
 
-    console.log('questions', questions)
-    return questions
-  } 
+  useEffect(() => {
 
-  useEffect(async () => {
-    // let newRows = rows
+    getAllAnswer()
 
-    getAllQuestions()
-    // newRows.push(createData('Gustavo', getDate()))
-
-    // const getAnswers = await getDocs(collection(db, "respostas"));
-    // getAnswers.forEach(async (doc) => {
-    //   const getForm = await getDocs(collection(db, "respostas", doc.id, 'perguntas'));
-    //   getForm.forEach((snap) => {
-        
-    //     console.log(`${snap.id} => ${snap.data().value}`);
-    //   })
-    //   console.log(`${doc.id} => ${doc.data().name}`);
-    // })
-
-    // setRows(newRows)
   }, [])
 
   const getDate = () => {
@@ -179,15 +147,14 @@ export default function CollapsibleTable() {
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>Respostas dos Usuários:</TableCell>
-              <div>
-                <TableCell align="right">Data</TableCell>
-              </div>
+              <TableCell>Respostas dos Usuários:</TableCell> 
+              <TableCell style={{ paddingRight: '10px'}} align="right">Data</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {console.log('teste', rows)} */}
+            {console.log('rowss', rows)}
             {!!rows && rows.map((row) => {
+              console.log('row', row)
               return <Row key={row.name} row={row} />;
             })}
           </TableBody>

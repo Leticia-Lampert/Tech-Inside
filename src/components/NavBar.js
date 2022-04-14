@@ -7,12 +7,13 @@ import '../css/navBar.css'
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase/firebase'
 import BoxQuestion from "../components/BoxQuestion"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { db } from '../firebase/firebase'
 import _ from 'lodash'
 
 export default function NavBar(props) {
+  const dispatch = useDispatch()
   const reducer = useSelector(state => state)
 
   const { setValidation, answer, setPerguntas } = props
@@ -25,8 +26,7 @@ export default function NavBar(props) {
   }
 
   const resposta = () => {
-    console.log("teste")
-    window.location.href ='http://localhost:3000/useranswer'
+    window.location.href ='http://localhost:3000/respostacliente'
   }
 
   const handleClose = () => {
@@ -36,8 +36,12 @@ export default function NavBar(props) {
 
   const logout = () => {
     signOut(auth).then(() => {
-      console.log('Logout com sucesso')
-      window.location.href ='http://localhost:3000/autenticacao'
+      window.location.href ='http://localhost:3000/'
+
+      dispatch({ type: 'SET_USER', user: null })
+
+      localStorage.setItem('user', false)
+
     }).catch((error) => {
       console.error('Logout sem sucesso', error)
     });
@@ -45,17 +49,23 @@ export default function NavBar(props) {
 
   const salvarQuestionario = async () => {
 
-    console.log("reducer", reducer)
+    let newQuestions = []
 
-    const docRef = await addDoc(collection(db, "respostas"), {
-      name: reducer.name
+    reducer.questions.forEach((item) => {
+
+      let data = reducer.answers[item]
+      
+      newQuestions.push({
+        value: data.value,
+        id: item,
+        question: data.question
+      })
     })
 
-    reducer.questions.forEach(async (item) => {
-      console.log('item', item)
-      const docRefQuestion = await setDoc(doc(db, "respostas", docRef.id, "perguntas", item), {
-        value: reducer.answers[item].value
-      })
+    const docRef = await addDoc(collection(db, "respostas"), {
+      name: reducer.name, 
+      date: new Date(),
+      questions: newQuestions
     })
   }
 

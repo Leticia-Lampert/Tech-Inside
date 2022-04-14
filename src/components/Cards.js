@@ -31,14 +31,18 @@ export default function Cards(props) {
 
   const salvarPergunta = async () => {
     const salvarRef = doc(db, "perguntas", pergunta.id);
-    console.log('perguntar')
     await updateDoc(salvarRef, {
       pergunta: save
     });
   }
 
   const slider = (e) => {
-    dispatch({ type: 'ADD_ANSWER', value: e.target.value, idQuestion: pergunta.id })
+    dispatch({
+      type: 'ADD_ANSWER',
+      value: e.target.value,
+      idQuestion: pergunta.id,
+      question: pergunta.snap
+    })
     
   }
 
