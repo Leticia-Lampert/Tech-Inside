@@ -4,32 +4,16 @@ const INITIAL_STATE = {
     answers: {},
     questions: [],
     name: '',
-    rows: [{
-        name: 'leticia',
-        date: '12/04/2022',
-        
-    }],
+    rows: [],
     user: null
 }
 
 const setRow = (state, action) => {
-    
-    let newRows = state.rows,
-        newDate = `${action.date.getDate()}/${action.date.getMonth() + 1}/${action.date.getYear()}`
 
-    newRows.push({
-        name: action.name,
-        date: newDate,
-        answers: action.answers
-    })
-
-    return Object.assign({...state}, {
-        rows: newRows
-    })
+    return Object.assign({...state}, {rows: action.form})
 }
 
 const setUser = (state, action) => {
-    console.log("action", action)
     return Object.assign({ ...state}, {
         user: action.user
     })

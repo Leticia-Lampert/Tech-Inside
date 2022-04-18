@@ -16,7 +16,6 @@ const PrivateRoute = ({
     redirectPath = '/',
     children,
   }) => {
-    console.log('user', user)
     if (!user) {
       return <Navigate to={redirectPath} replace />
     }

@@ -1,8 +1,7 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase/firebase'
-import _ from 'lodash'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Box from "@mui/material/Box";
@@ -38,17 +37,11 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.name}
         </TableCell>
-        <TableCell component="th" scope="row">
-          {row.date}
-        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              {/* <Typography variant="h6" gutterBottom component="div">
-                Resposta
-              </Typography> */}
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
@@ -57,14 +50,16 @@ function Row(props) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {!!row.answers && row.answers.map((answerRow) => (
-                    <TableRow key={answerRow.question}>
-                      <TableCell component="th" scope="row">
-                        {answerRow.question}
-                      </TableCell>
-                      <TableCell>{answerRow.value}</TableCell>
-                    </TableRow>
-                  ))}
+                  {!!row.answers && row.answers.map((answerRow) => {
+                    return(
+                      <TableRow key={answerRow.question}>
+                        <TableCell component="th" scope="row">
+                          {answerRow.question}
+                        </TableCell>
+                        <TableCell>{answerRow.value}</TableCell>
+                      </TableRow>
+                    )
+                  })}
                 </TableBody>
               </Table>
             </Box>
@@ -82,12 +77,19 @@ export default function UserAnswer() {
 
   const getAllAnswer = async () => {
 
+    getAnswers().then((form) => {
+
+        dispatch({ type: 'ADD_ROW', form })
+    })
+  }
+
+  const getAnswers = async () => {
     const getAnswers = await getDocs(collection(db, "respostas"))
 
-    getAnswers.forEach((snap) => {
-      let doc = snap.data()
+    let form = []
 
-      console.log('doc', doc)
+    getAnswers.forEach(async (snap) => {
+      let doc = snap.data()
 
       let answers = []
 
@@ -98,47 +100,20 @@ export default function UserAnswer() {
         })
       })
 
-      console.log('answers', answers)
-
-      let date = new Date(doc.date.seconds * 1000),
-        newDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getYear()}`
-
-      console.log('date', date)
-      console.log('newDate', newDate)
-
-      dispatch({ type: 'ADD_ROW', name: doc.name, answers: answers, date: newDate })
+      form.push({
+        type: 'ADD_ROW',
+        name: doc.name,
+        answers: answers
+      })
     })
+
+    return Promise.resolve(form)
   }
 
   useEffect(() => {
-
     getAllAnswer()
 
   }, [])
-
-  const getDate = () => {
-    let date = new Date()
-    let newDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getYear()}`
-  
-    return newDate
-  }
-
-  const createData = (name, date) => {
-    return {
-      name: name,
-      date: date,
-      answer: [
-        {
-          question: "Qual sua nota?",
-          answer: 3,
-        },
-        {
-          question: "Qual a nota dele?",
-          answer: 10,
-        },
-      ],
-    }
-  }
 
   return (
     <div className="usersAnswers">
@@ -148,13 +123,10 @@ export default function UserAnswer() {
             <TableRow>
               <TableCell />
               <TableCell>Respostas dos Usuários:</TableCell> 
-              <TableCell style={{ paddingRight: '10px'}} align="right">Data</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {console.log('rowss', rows)}
             {!!rows && rows.map((row) => {
-              console.log('row', row)
               return <Row key={row.name} row={row} />;
             })}
           </TableBody>
