@@ -2,7 +2,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-//   Switch,
   Navigate  
 } from "react-router-dom";
 import { useSelector } from 'react-redux'
@@ -10,6 +9,7 @@ import Home from "../pages/Home";
 import Authentication from "../pages/Authentication"
 import Answer from "../pages/Answer"
 import UserAnswer from "../pages/UserAnswer"
+import Feedback from "../pages/Feedback"
 
 const PrivateRoute = ({
     user,
@@ -47,6 +47,7 @@ function Router() {
             }/>
             <Route exact path="/" element={<Authentication/>}  />
             <Route path="/respostacliente" element={<UserAnswer />}/>
+            <Route path="/feedback" element={<Feedback />}/>
         </Routes>
       </BrowserRouter>
     )

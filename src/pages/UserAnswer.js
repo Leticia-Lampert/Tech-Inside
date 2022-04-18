@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase/firebase'
 import { useSelector, useDispatch } from 'react-redux'
+import NavBar from "../components/NavBar"
 
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -116,22 +117,25 @@ export default function UserAnswer() {
   }, [])
 
   return (
-    <div className="usersAnswers">
-      <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell>Respostas dos Usuários:</TableCell> 
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {!!rows && rows.map((row) => {
-              return <Row key={row.name} row={row} />;
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+    <div>
+      <NavBar userAnswer='userAnswer' />
+      <div className="usersAnswers">
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell>Respostas dos Usuários:</TableCell> 
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {!!rows && rows.map((row) => {
+                return <Row key={row.name} row={row} />;
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
     </div>
   );
 }

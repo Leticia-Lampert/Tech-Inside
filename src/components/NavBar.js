@@ -11,14 +11,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { db } from '../firebase/firebase'
 import _ from 'lodash'
+import { useNavigate } from 'react-router-dom'
 
 export default function NavBar(props) {
   const dispatch = useDispatch()
   const reducer = useSelector(state => state)
 
-  const { setValidation, answer, setPerguntas } = props
+  const { setValidation, answer, setPerguntas, userAnswer } = props
 
   const [open, setOpen] =  React.useState(false);
+
+  const history = useNavigate()
 
   const criarPergunta = () => {
     setOpen(true)
@@ -67,6 +70,8 @@ export default function NavBar(props) {
       date: new Date(),
       questions: newQuestions
     })
+
+    history('/feedback')
   }
 
   return (
@@ -83,7 +88,13 @@ export default function NavBar(props) {
                 <div>
                 <Button color="inherit" onClick={() => criarPergunta()}>Criar pergunta</Button> 
                 <Button color="inherit" onClick={() => logout()}>logout</Button>
-                <Button color="inherit" onClick={() => resposta()}> Resposta do Usuário</Button>
+                {
+                  userAnswer == 'userAnswer' 
+                  ?
+                  <></>
+                  :
+                  <Button color="inherit" onClick={() => resposta()}> Resposta do Usuário</Button>
+                }
                 </div>
               }
             </Toolbar>
