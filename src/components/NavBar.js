@@ -29,7 +29,8 @@ export default function NavBar(props) {
   }
 
   const resposta = () => {
-    window.location.href ='https://maxum-case--maxum-case-doqlpyda.web.app/respostacliente'
+    history('/respostacliente')
+    // window.location.href ='http://maxum-case--maxum-case-doqlpyda.web.app/respostacliente'
   }
 
   const handleClose = () => {
@@ -39,11 +40,12 @@ export default function NavBar(props) {
 
   const logout = () => {
     signOut(auth).then(() => {
-      window.location.href ='https://maxum-case--maxum-case-doqlpyda.web.app/'
-
+    
       dispatch({ type: 'SET_USER', user: null })
 
       localStorage.setItem('user', false)
+
+      history("/")
 
     }).catch((error) => {
       console.error('Logout sem sucesso', error)
