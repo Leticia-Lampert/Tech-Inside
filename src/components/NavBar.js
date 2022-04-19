@@ -29,7 +29,7 @@ export default function NavBar(props) {
   }
 
   const resposta = () => {
-    window.location.href ='http://localhost:3000/respostacliente'
+    window.location.href ='https://maxum-case--maxum-case-doqlpyda.web.app/respostacliente'
   }
 
   const handleClose = () => {
@@ -39,7 +39,7 @@ export default function NavBar(props) {
 
   const logout = () => {
     signOut(auth).then(() => {
-      window.location.href ='http://localhost:3000/'
+      window.location.href ='https://maxum-case--maxum-case-doqlpyda.web.app/'
 
       dispatch({ type: 'SET_USER', user: null })
 
