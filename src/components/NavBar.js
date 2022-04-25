@@ -30,7 +30,6 @@ export default function NavBar(props) {
 
   const resposta = () => {
     history('/respostacliente')
-    // window.location.href ='http://maxum-case--maxum-case-doqlpyda.web.app/respostacliente'
   }
 
   const handleClose = () => {
@@ -43,7 +42,7 @@ export default function NavBar(props) {
     
       dispatch({ type: 'SET_USER', user: null })
 
-      localStorage.setItem('user', false)
+      localStorage.setItem('user', null)
 
       history("/")
 

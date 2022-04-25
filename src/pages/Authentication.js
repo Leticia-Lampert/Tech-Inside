@@ -51,6 +51,7 @@ function Authentication() {
           dispatch({ type: 'SET_USER', user: user })
 
           localStorage.setItem('user', true)
+
         })
         .then (() => {
           history('/home')

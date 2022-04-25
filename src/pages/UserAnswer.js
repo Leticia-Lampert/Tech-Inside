@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from '../firebase/firebase'
 import { useSelector, useDispatch } from 'react-redux'
 import NavBar from "../components/NavBar"
+import { useNavigate } from 'react-router-dom'
 
 import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
@@ -76,6 +77,8 @@ export default function UserAnswer() {
   const rows = useSelector(state => state.rows)
   const dispatch = useDispatch()
 
+  const history = useNavigate()
+
   const getAllAnswer = async () => {
 
     getAnswers().then((form) => {
@@ -112,6 +115,12 @@ export default function UserAnswer() {
   }
 
   useEffect(() => {
+    const user = localStorage.getItem("user")
+
+    if(user === true) {
+      history('/')
+    } 
+
     getAllAnswer()
 
   }, [])

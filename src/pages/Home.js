@@ -8,14 +8,15 @@ import NavBar from "../components/NavBar"
 function Home() {
 
     const [perguntas, setPerguntas] = useState(null); 
-    const [validation, setValidation] = useState(true);    
+    const [validation, setValidation] = useState(true);
 
     useEffect(() => {
+        
         if(!!validation) {
             ajustQuestion()
             setValidation(false)
         }
-    });
+    }, [validation]);
 
     const ajustQuestion = (() => {
         setPerguntas(null)
