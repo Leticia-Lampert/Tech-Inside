@@ -4,7 +4,7 @@ import * as yup from "yup";
 import "../css/authentication.css";
 import eye from "../images/eye.svg";
 import eyeClose from "../images/eyeClose.svg";
-import { auth } from '../firebase/firebase'
+import { auth } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch, useSelector } from 'react-redux'

@@ -5,11 +5,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import '../css/navBar.css'
 import { signOut } from "firebase/auth";
-import { auth } from '../firebase/firebase'
+import { auth } from '../firebase'
 import BoxQuestion from "../components/BoxQuestion"
 import { useSelector, useDispatch } from 'react-redux'
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
-import { db } from '../firebase/firebase'
+import { db } from '../firebase'
 import _ from 'lodash'
 import { useNavigate } from 'react-router-dom'
 
