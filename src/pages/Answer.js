@@ -1,7 +1,6 @@
 import Cards from "../components/Cards";
-import { collection, query, onSnapshot } from "firebase/firestore";
+import { collection, query, onSnapshot, getFirestore } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { db } from "../firebase/firebase";
 import "../css/answer.css";
 import NavBar from "../components/NavBar";
 
@@ -21,7 +20,7 @@ function Answer() {
 
         let question = []
 
-        const q = query(collection(db, "perguntas"));
+        const q = query(collection(getFirestore(), "perguntas"));
 
         onSnapshot(q, async (snapShot) => {
             snapShot.forEach((doc) => {

@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from '../firebase/firebase'
+import { collection, getDocs, getFirestore } from "firebase/firestore";
 import { useSelector, useDispatch } from 'react-redux'
 import NavBar from "../components/NavBar"
 import { useNavigate } from 'react-router-dom'
@@ -88,7 +87,7 @@ export default function UserAnswer() {
   }
 
   const getAnswers = async () => {
-    const getAnswers = await getDocs(collection(db, "respostas"))
+    const getAnswers = await getDocs(collection(getFirestore(), "respostas"))
 
     let form = []
 

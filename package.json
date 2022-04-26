@@ -10,7 +10,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
-    "firebase": "^7.0.0",
+    "firebase": "^9.6.3",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "npx": "^10.2.2",

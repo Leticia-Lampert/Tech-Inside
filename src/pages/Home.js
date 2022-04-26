@@ -1,8 +1,7 @@
 import Cards from "../components/Cards"
 import "../css/home.css"
-import { doc, deleteDoc, collection, query, onSnapshot } from "firebase/firestore";
+import { doc, deleteDoc, collection, query, onSnapshot, getFirestore } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { db } from "../firebase/firebase"
 import NavBar from "../components/NavBar"
 
 function Home() {
@@ -24,7 +23,7 @@ function Home() {
     })
 
     const excluirPergunta = async (id) => {
-        await deleteDoc(doc(db, "perguntas", id));
+        await deleteDoc(doc(getFirestore(), "perguntas", id));
         setValidation(true)
         setPerguntas(null)
     }
@@ -33,7 +32,7 @@ function Home() {
 
         let question = []
 
-        const q = query(collection(db, "perguntas"));
+        const q = query(collection(getFirestore(), "perguntas"));
 
         onSnapshot(q, (snapShot) => {
             snapShot.forEach((doc) => {

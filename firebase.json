@@ -2,13 +2,7 @@
   "database": {
     "rules": "database.rules.json"
   },
-    "hosting": {
-      "appAssociation": "AUTO",
-    "rewrites": [ {
-      "source": "https://maxum-case.app/",
-      "dynamicLinks": true,
-      "destination": "/index.html"
-    } ],
+  "hosting": {
     "public": "build",
     "ignore": [
       "firebase.json",
