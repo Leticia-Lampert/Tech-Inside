@@ -69,6 +69,10 @@ function Authentication() {
       .then((userCredential) => {
         
         const user = userCredential.user;
+
+        localStorage.setItem('user', true)
+
+        history('/home')
       })
       .catch((error) => {
         const errorCode = error.code;

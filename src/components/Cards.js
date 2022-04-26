@@ -64,7 +64,8 @@ export default function Cards(props) {
             </div>
         }
         <div className="text">
-          <TextField
+          <TextField 
+            multiline
             disabled={!!disabled ? true : false}
             fullWidth
             label={!!name ? 'Digite seu nome' : !!answer ? '' : "clique para alterar"}

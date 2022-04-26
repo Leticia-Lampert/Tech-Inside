@@ -16,7 +16,9 @@ const PrivateRoute = ({
   redirectPath = '/',
   children,
 }) => {
-  if (!user) {
+  console.log('user', user, typeof user)
+  console.log('user tst', !user)
+  if (user == 'null') {
     return <Navigate to={redirectPath} replace />;
   }
 
@@ -25,7 +27,7 @@ const PrivateRoute = ({
 
 function Router() {
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(localStorage.getItem("user"))
 
   useEffect(() => {
 
@@ -50,8 +52,8 @@ function Router() {
             </PrivateRoute>
           } />
           <Route exact path="/" element={<Authentication/>}  />
-          <Route path="/resposta" element={<Answer />}/>
-          <Route path="/feedback" element={<Feedback />}/>
+          <Route exact path="/resposta" element={<Answer />}/>
+          <Route exact path="/feedback" element={<Feedback />}/>
       </Routes>
     </BrowserRouter>
   )
