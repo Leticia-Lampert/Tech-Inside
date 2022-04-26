@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 import "../css/card.css";
 import apagar from "../images/apagar.svg";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from '../firebase/firebase';
+import { db } from '../firebase';
 import Slider from '@mui/material/Slider';
 import { useSelector, useDispatch } from 'react-redux'
 
