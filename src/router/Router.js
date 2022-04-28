@@ -52,8 +52,8 @@ function Router() {
             </PrivateRoute>
           } />
           <Route exact path="/" element={<Authentication/>}  />
-          <Route exact path="/resposta" element={<Answer />}/>
-          <Route exact path="/feedback" element={<Feedback />}/>
+          <Route path="/resposta" element={<Answer />}/>
+          <Route path="/feedback" element={<Feedback />}/>
       </Routes>
     </BrowserRouter>
   )
