@@ -7,7 +7,7 @@
     border-radius: 7px;
     font-family: PT Serif;
     text-align: center;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     margin-top: 35px;
@@ -62,7 +62,7 @@ h1 {
 }
 
 .button {
-    background-image: linear-gradient(to right, #D31027 0%, #EA384D 51%, #D31027 100%); 
+    background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF 100%); 
     margin: 10px;
     padding: 10px 35px;
     text-align: center;
@@ -79,10 +79,31 @@ h1 {
 
 .button:hover {
     background-position: right center;
-    /* change the direction of the change here */
     color: #fff;
     text-decoration: none;
 }
+
+         
+/* .button {
+    background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%);
+    margin: 10px;
+    padding: 15px 45px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;            
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+  }
+
+  .button:hover {
+    background-position: right center; /* change the direction of the change here */
+    /* color: #fff;
+    text-decoration: none;
+  } */ */
+ 
 
 hr{
     border-color:#aaa;

@@ -3,6 +3,7 @@ import "../css/home.css"
 import { doc, deleteDoc, collection, query, onSnapshot, getFirestore } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import NavBar from "../components/NavBar"
+import React from 'react'
 
 function Home() {
 

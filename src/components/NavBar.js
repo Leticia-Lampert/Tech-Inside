@@ -82,7 +82,7 @@ export default function NavBar(props) {
         <Box >
           <AppBar >
             <Toolbar>
-              { answer == 'answer'
+              { answer === 'answer'
                 ?
                 <Button className="botao" onClick={() => salvarQuestionario()}> Salvar Questionário</Button>             
                 :
@@ -90,7 +90,7 @@ export default function NavBar(props) {
                 <Button color="inherit" onClick={() => criarPergunta()}>Criar pergunta</Button> 
                 <Button color="inherit" onClick={() => logout()}>logout</Button>
                 {
-                  userAnswer == 'userAnswer' 
+                  userAnswer === 'userAnswer' 
                   ?
                   <></>
                   :

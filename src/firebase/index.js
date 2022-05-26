@@ -4,14 +4,13 @@ import { getFirestore } from "firebase/firestore"
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCRxkwzIZ6v8Pb5vOCUAogf8sZhyc1uPE8",
-  authDomain: "maxum-case.firebaseapp.com",
-  databaseURL: "https://maxum-case-default-rtdb.firebaseio.com",
-  projectId: "maxum-case",
-  storageBucket: "maxum-case.appspot.com",
-  messagingSenderId: "980715637654",
-  appId: "1:980715637654:web:daa72ad411e0ea27b26bb7",
-  measurementId: "G-15X95SM94Y"
+  apiKey: "AIzaSyAcKkBhesJ5pCDJdQJiCoetXu87dSxo8l8",
+  authDomain: "tech-inside-218e5.firebaseapp.com",
+  projectId: "tech-inside-218e5",
+  storageBucket: "tech-inside-218e5.appspot.com",
+  messagingSenderId: "396139737563",
+  appId: "1:396139737563:web:aea06ff6426276579bf7fe",
+  measurementId: "G-W1G9KJPNTF"
 };
 
 const app = initializeApp(firebaseConfig);

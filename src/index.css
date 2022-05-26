@@ -12,7 +12,7 @@ body {
   right: 0;
   display: flex;
 
-  background-image: url("images/frota.jfif"), url("images/FrotaAxial.jpg");
+  background-image: url("images/fundo.jpg"), url("images/fundo.jpg");
   background-size: 100vw;
   background-repeat:no-repeat, repeat-y;
 

@@ -3,6 +3,7 @@ import { collection, query, onSnapshot, getFirestore } from "firebase/firestore"
 import { useState, useEffect } from "react";
 import "../css/answer.css";
 import NavBar from "../components/NavBar";
+import React from 'react'
 
 function Answer() {
 
