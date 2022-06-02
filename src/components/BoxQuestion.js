@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import '../css/boxQuestion.css'
 import { collection, addDoc } from "firebase/firestore";
-import { db } from '../firebase'
+import { db } from '../firebase'  
 
 export default function BoxQuestion(props) {
   const [question, setQuestion] = useState()
