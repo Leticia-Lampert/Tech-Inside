@@ -7,8 +7,8 @@ import React from 'react'
 
 function Answer() {
 
-    const [perguntas, setPerguntas] = useState(null); 
-    const [validation, setValidation] = useState(true);    
+    const [perguntas, setPerguntas] = useState(null)
+    const [validation, setValidation] = useState(true)   
 
     useEffect(() => {
         if(!!validation) {
@@ -40,7 +40,7 @@ function Answer() {
 
     return (
         <div>
-            <NavBar answer = 'answer'/>
+            <NavBar answer='answer' setValidation={setValidation} setPerguntas={setPerguntas}/>
             <div className='component'>
                 <div className='cardComponent'>
                     <Cards 
@@ -50,6 +50,7 @@ function Answer() {
                         name='name'
                     />
                 </div>
+                {console.log('perguntas', perguntas)}
                 {!!perguntas && perguntas.length > 0 ? perguntas.map((item, index) => {
                     return (
                         <div key={index} className='cardComponent'>

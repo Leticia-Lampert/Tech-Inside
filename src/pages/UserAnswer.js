@@ -1,23 +1,23 @@
-import * as React from "react";
-import { useEffect } from "react";
-import { collection, getDocs, getFirestore } from "firebase/firestore";
+import * as React from "react"
+import { useEffect, useState } from "react"
+import { collection, getDocs, getFirestore } from "firebase/firestore"
 import { useSelector, useDispatch } from 'react-redux'
 import NavBar from "../components/NavBar"
 import { useNavigate } from 'react-router-dom'
 
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import "../css/userAnswer.css";
+import Box from "@mui/material/Box"
+import Collapse from "@mui/material/Collapse"
+import IconButton from "@mui/material/IconButton"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
+import Paper from "@mui/material/Paper"
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
+import "../css/userAnswer.css"
 
 function Row(props) {
   const { row } = props
@@ -68,10 +68,13 @@ function Row(props) {
         </TableCell>
       </TableRow>
     </React.Fragment>
-  );
+  )
 }
 
 export default function UserAnswer() {
+  
+  const [perguntas, setPerguntas] = React.useState(null)
+  const [validation, setValidation] = React.useState(true)
   
   const rows = useSelector(state => state.rows)
   const dispatch = useDispatch()
@@ -126,7 +129,7 @@ export default function UserAnswer() {
 
   return (
     <div>
-      <NavBar userAnswer='userAnswer' />
+      <NavBar userAnswer='userAnswer' setValidation={setValidation} setPerguntas={setPerguntas}/>
       <div className="usersAnswers">
         <TableContainer component={Paper}>
           <Table aria-label="collapsible table">
@@ -138,12 +141,12 @@ export default function UserAnswer() {
             </TableHead>
             <TableBody>
               {!!rows && rows.map((row) => {
-                return <Row key={row.name} row={row} />;
+                return <Row key={row.name} row={row} />
               })}
             </TableBody>
           </Table>
         </TableContainer>
       </div>
     </div>
-  );
+  )
 }

@@ -1,14 +1,14 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
+import * as React from 'react'
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import Button from '@mui/material/Button'
 import '../css/navBar.css'
-import { signOut } from "firebase/auth";
+import { signOut } from "firebase/auth"
 import { auth } from '../firebase'
 import BoxQuestion from "../components/BoxQuestion"
 import { useSelector, useDispatch } from 'react-redux'
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore"
 import { db } from '../firebase'
 import _ from 'lodash'
 import { useNavigate } from 'react-router-dom'
@@ -19,11 +19,14 @@ export default function NavBar(props) {
 
   const { setValidation, answer, setPerguntas, userAnswer } = props
 
-  const [open, setOpen] =  React.useState(false);
+  const [open, setOpen] =  React.useState(false)
 
   const history = useNavigate()
 
   const criarPergunta = () => {
+
+    console.log('setPerguntas', setPerguntas)
+
     setOpen(true)
     setPerguntas(null)
   }
@@ -35,7 +38,7 @@ export default function NavBar(props) {
   const handleClose = () => {
     setOpen(false)
     setValidation(true)
-  };
+  }
 
   const logout = () => {
     signOut(auth).then(() => {
@@ -48,7 +51,7 @@ export default function NavBar(props) {
 
     }).catch((error) => {
       console.error('Logout sem sucesso', error)
-    });
+    })
   }
 
   const salvarQuestionario = async () => {
@@ -75,6 +78,10 @@ export default function NavBar(props) {
     history('/feedback')
   }
 
+  const questions = () => {
+    history('/home')
+  }
+
   return (
     <div>
       <div className="navBar">
@@ -92,9 +99,9 @@ export default function NavBar(props) {
                 {
                   userAnswer === 'userAnswer' 
                   ?
-                  <></>
+                  <Button color="inherit" onClick={() => questions()}>Alterar Perguntas</Button>
                   :
-                  <Button color="inherit" onClick={() => resposta()}> Resposta do Usuário</Button>
+                  <Button color="inherit" onClick={() => resposta()}> Respostas dos Usuários</Button>
                 }
                 </div>
               }
@@ -103,5 +110,5 @@ export default function NavBar(props) {
         </Box>
       </div>
     </div>
-  );
+  )
 }

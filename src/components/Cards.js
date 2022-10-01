@@ -1,14 +1,14 @@
-import React, { useState }from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import "../css/card.css";
-import apagar from "../images/apagar.svg";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from '../firebase';
-import Slider from '@mui/material/Slider';
+import React, { useState }from "react"
+import Card from "@mui/material/Card"
+import CardActions from "@mui/material/CardActions"
+import CardContent from "@mui/material/CardContent"
+import Button from "@mui/material/Button"
+import TextField from "@mui/material/TextField"
+import "../css/card.css"
+import apagar from "../images/apagar.svg"
+import { doc, updateDoc } from "firebase/firestore"
+import { db } from '../firebase'
+import Slider from '@mui/material/Slider'
 import { useSelector, useDispatch } from 'react-redux'
 
 export default function Cards(props) {
@@ -21,22 +21,29 @@ export default function Cards(props) {
     disabled,
     answer,
     name
-  } = props;
+  } = props
 
   const [save, setSave] = useState(pergunta.snap)
 
   const handleChange = (e) => {
     dispatch({ type: 'GET_NAME', name: e.target.value })
+    setSave(e.target.value)
   }
 
   const salvarPergunta = async () => {
-    const salvarRef = doc(db, "perguntas", pergunta.id);
+
+    console.log('save', save)
+
+    const salvarRef = doc(db, "perguntas", pergunta.id)
+
     await updateDoc(salvarRef, {
       pergunta: save
-    });
+    })
+
   }
 
   const slider = (e) => {
+    console.log('teste', e.target.value)
     dispatch({
       type: 'ADD_ANSWER',
       value: e.target.value,
@@ -85,18 +92,18 @@ export default function Cards(props) {
           ?
           <div className='slider'>
             <Slider
-              defaultValue={5}
+              defaultValue={3}
               aria-label="Default"
               valueLabelDisplay="auto" 
               onChange={(e) => slider(e)}
               marks
-              min={0}
-              max={10}/>
+              min={1}
+              max={5}/>
             </div>
           :
           <Button className="botao" onClick={() => salvarPergunta()}> Salvar Alteração</Button>
         }
       </CardActions>
     </Card>
-  );
+  )
 }
